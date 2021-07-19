@@ -27,12 +27,12 @@
 
       <div class="form-group mt-2">
         <label>Last Name</label>
-        <input type="text" class="form-control" name="last_name" placeholder="Last Name" required value="{{ old('first_name') }}">
+        <input type="text" class="form-control" name="last_name" placeholder="Last Name" required value="{{ old('last_name') }}">
       </div>
 
       <div class="form-group mt-2">
         <label>Email</label>
-        <input type="text" class="form-control" name="email" placeholder="Email" required value="{{ old('first_name') }}">
+        <input type="text" class="form-control" name="email" placeholder="Email" required value="{{ old('email') }}">
       </div>
 
       <div class="form-group mt-2">
