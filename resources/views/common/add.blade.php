@@ -24,8 +24,8 @@
     @endif
 
     <div class="form-group">
-      <label>Title <span class="text-danger">*</span></label>
-      <input type="text" class="form-control" name="title" placeholder="Title" required>
+      <label>Blog Name <span class="text-danger">*</span></label>
+      <input type="text" class="form-control" name="title" placeholder="Blog Name" required>
     </div>
 
     <div class="form-group mt-2">

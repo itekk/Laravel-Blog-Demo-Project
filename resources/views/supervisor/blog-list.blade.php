@@ -18,7 +18,7 @@
     <table class="table table-striped table-bordered table-hover table-responsive">
       <thead class="bg-dark text-white">
         <tr>
-          <th>Title</th>
+          <th>Blog Name</th>
           <th>User Details</th>
           <th class="text-center w-15">Actions</th>
         </tr>
