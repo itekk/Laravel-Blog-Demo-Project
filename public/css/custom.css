@@ -1,0 +1,48 @@
+.searchform .margin {
+  margin-right: 10px;
+}
+.login-container {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgb(0 0 0 / 30%);
+  box-shadow: 0 30px 60px 0 rgb(0 0 0 / 30%);
+  padding: 20px;
+}
+
+html body {
+  height: 100%;
+  background-color: #f4f5fa;
+}
+
+.custom-container {
+  -webkit-box-shadow: 0 1px 15px 1px rgb(62 57 107 / 7%);
+  box-shadow: 0 1px 15px 1px rgb(62 57 107 / 7%);
+  padding: 20px;
+  background: #fff;
+}
+
+.breadcrumb {
+  margin-bottom: 0;
+}
+
+.alert-primary {
+  padding: 10px 20px;
+}
+
+.fancybox-content {
+  height: 100% !important;
+}
+
+.w-15 {
+  width: 15%;
+}
+
+select {
+  text-transform: capitalize;
+}
