@@ -10,4 +10,14 @@ class AssignedUsers extends Model
     protected $primaryKey = 'id';
     public $timestamps    = false;
     protected $guarded    = [];
+
+    public function getUser()
+    {
+        return $this->hasOne('App\User', 'id', 'blogger_id');
+    }
+
+    public function getBlogs()
+    {
+        return $this->hasMany('App\Models\Blogs', 'user_id', 'blogger_id');
+    }
 }

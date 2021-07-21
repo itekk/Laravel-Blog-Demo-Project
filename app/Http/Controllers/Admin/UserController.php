@@ -7,8 +7,6 @@ use App\Models\Blogs;
 use App\Models\AssignedUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,23 +19,13 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $userQuery = User::select(
-            'users.id',
-            'first_name',
-            'last_name',
-            'email',
-            'user_type',
-            'last_login',
-            DB::raw('COUNT(user_id) AS numBlogs')
-        )->leftJoin('blogs', 'users.id', '=', 'user_id');
+        $userQuery = User::orderByDesc('updated_at');
 
         if ($request->type) {
             $userQuery->where('user_type', $request->type);
         }
-        
 
-        $userList = $userQuery->groupBy('users.id')
-            ->paginate(20);
+        $userList = $userQuery->paginate(20);
 
         $sqlHelper = new \App\Library\SqlHelper();
         $userTypes = $sqlHelper->getEnumValues('users', 'user_type');
@@ -52,7 +40,7 @@ class UserController extends Controller
      */
     public function edit(Request $request)
     {
-        $userDet = User::where('id', $request->route('id'))->first();
+        $userDet = User::find($request->route('id'));
 
         $sqlHelper = new \App\Library\SqlHelper();
         $userTypes = $sqlHelper->getEnumValues('users', 'user_type');
@@ -79,13 +67,13 @@ class UserController extends Controller
             ]
         ]);
 
-        User::where('id', $request->route('id'))
-            ->update([
-                'first_name' => $request->first_name,
-                'last_name'  => $request->last_name,
-                'email'      => $request->email,
-                'user_type'  => $request->user_type,
-            ]);
+        $user             = User::find($request->route('id'));
+        $user->first_name = $request->first_name;
+        $user->last_name  = $request->last_name;
+        $user->email      = $request->email;
+        $user->user_type  = $request->user_type;
+        $user->updated_at = date('Y-m-d h:i:s');
+        $user->save();
 
         return redirect('admin/user-list');
     }
@@ -122,14 +110,14 @@ class UserController extends Controller
                 Rule::unique('users')
             ]
         ]);
-
-        User::insert([
-            'first_name' => $request->first_name,
-            'last_name'  => $request->last_name,
-            'email'      => $request->email,
-            'user_type'  => $request->user_type,
-            'password'   => Hash::make($request->password)
-        ]);
+        
+        $user             = new User;
+        $user->first_name = $request->first_name;
+        $user->last_name  = $request->last_name;
+        $user->email      = $request->email;
+        $user->user_type  = $request->user_type;
+        $user->password   = Hash::make($request->password);
+        $user->save();
 
         return redirect('admin/user-list');
     }

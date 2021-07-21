@@ -20,7 +20,7 @@
           <td>{{ $userDet->first_name }}</td>
           <td>{{ $userDet->last_name }}</td>
           <td>{{ $userDet->email }}</td>
-          <td class="text-center">{{ $userBlogs }}</td>
+          <td class="text-center">{{ $userDet->getBlogs->count() }}</td>
           <td>
             @if ($userDet->last_login)
             {{ date("m-d-Y H:i:s", strtotime($userDet->last_login)) }}

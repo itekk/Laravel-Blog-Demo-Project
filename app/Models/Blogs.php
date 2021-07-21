@@ -10,4 +10,9 @@ class Blogs extends Model
     protected $primaryKey = 'id';
     public $timestamps    = false;
     protected $guarded    = [];
+
+    public function getUser()
+    {
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
 }

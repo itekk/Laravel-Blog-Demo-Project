@@ -16,8 +16,7 @@ class DashboardController extends Controller
     public function index()
     {
         $userDet   = Auth::user();
-        $userBlogs = Blogs::where('user_id', Auth::user()->id)->get()->count();
 
-        return view('blogger.index', compact('userDet', 'userBlogs'));
+        return view('blogger.index', compact('userDet'));
     }
 }

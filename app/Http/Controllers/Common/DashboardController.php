@@ -29,12 +29,11 @@ class DashboardController extends Controller
             ]
         ]);
 
-        User::where('id', Auth::user()->id)
-            ->update([
-                'first_name' => $request->first_name,
-                'last_name'  => $request->last_name,
-                'email'      => $request->email,
-            ]);
+        $user             = User::find(Auth::user()->id);
+        $user->first_name = $request->first_name;
+        $user->last_name  = $request->last_name;
+        $user->email      = $request->email;
+        $user->save();
     }
 
     /**
@@ -59,10 +58,9 @@ class DashboardController extends Controller
             'password_confirmation' => 'required|min:6',
         ]);
 
-        User::where('id', Auth::user()->id)
-            ->update([
-                'password' => Hash::make($request->password),
-            ]);
+        $user           = User::find(Auth::user()->id);
+        $user->password = Hash::make($request->password);
+        $user->save();
 
         return redirect(Auth::user()->user_type . '/dashboard');
     }

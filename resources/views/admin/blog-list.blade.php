@@ -27,11 +27,11 @@
         @foreach ($blogs as $row)
           <tr>
             <td>{{ $row->title }}</td>
-            <td>{{ $row->first_name }} {{ $row->last_name }} ({{ $row->email }})</td>
+            <td>{{ $row->getUser->first_name }} {{ $row->getUser->last_name }} ({{ $row->getUser->email }})</td>
             <td class="text-center">
-              <a class="btn btn-success btn-sm" data-fancybox data-type="iframe" href="{{ route('view-blog', [Auth::user()->user_type, $row->blogId]) }}">View</a>
-              <a class="btn btn-primary btn-sm" href="{{ route('edit-blog', [Auth::user()->user_type, $row->blogId]) }}">Edit</a>
-              <button type="button" class="btn btn-danger btn-sm" onclick="deleteBlog({{ $row->blogId }})">Delete</a>
+              <a class="btn btn-success btn-sm" data-fancybox data-type="iframe" href="{{ route('view-blog', [Auth::user()->user_type, $row->id]) }}">View</a>
+              <a class="btn btn-primary btn-sm" href="{{ route('edit-blog', [Auth::user()->user_type, $row->id]) }}">Edit</a>
+              <button type="button" class="btn btn-danger btn-sm" onclick="deleteBlog({{ $row->id }})">Delete</a>
             </td>
           </tr>
         @endforeach

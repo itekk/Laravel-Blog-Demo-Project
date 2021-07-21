@@ -20,7 +20,7 @@
           <td>{{ $userDet->first_name }}</td>
           <td>{{ $userDet->last_name }}</td>
           <td>{{ $userDet->email }}</td>
-          <td class="text-center">{{ $userDet->numBlogs }}</td>
+          <td class="text-center">{{ $userDet->getBlogs->count() }}</td>
           <td>
             @if ($userDet->last_login)
             {{ date("m-d-Y H:i:s", strtotime($userDet->last_login)) }}
@@ -42,7 +42,7 @@
             <div class="card-body">
               <h5 class="card-title mb-3">Total number of assigned bloggers</h5>
               <h3 class="card-text">
-                {{ $totalBloggers->totalBloggers }}
+                {{ $userDet->getBloggers()->count() }}
               </h3>
             </div>
           </div>
@@ -54,7 +54,7 @@
             <div class="card-body">
               <h5 class="card-title mb-3">Total number of blogs added by assigned bloggers</h5>
               <h3 class="card-text">
-                {{ $totalBlogs->totalBlogs }}
+                {{ $totalBlogs }}
               </h3>
             </div>
           </div>

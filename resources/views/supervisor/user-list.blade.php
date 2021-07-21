@@ -17,13 +17,13 @@
       <tbody>
         @foreach($userList as $row)
         <tr>
-          <td>{{ $row->first_name }}</td>
-          <td>{{ $row->last_name }}</td>
-          <td>{{ $row->email }}</td>
-          <td class="text-center">{{ $row->numBlogs }}</td>
+          <td>{{ $row->getUser->first_name }}</td>
+          <td>{{ $row->getUser->last_name }}</td>
+          <td>{{ $row->getUser->email }}</td>
+          <td class="text-center">{{ $row->getBlogs->count() }}</td>
           <td>
             @if ($row->last_login)
-            {{ date("m-d-Y H:i:s", strtotime($row->last_login)) }}
+            {{ date("m-d-Y H:i:s", strtotime($row->getUser->last_login)) }}
             @endif
           </td>
         </tr>

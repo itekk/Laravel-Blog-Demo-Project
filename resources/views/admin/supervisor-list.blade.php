@@ -22,8 +22,8 @@
           <td>{{ $row->first_name }}</td>
           <td>{{ $row->last_name }}</td>
           <td>{{ $row->email }}</td>
-          <td class="text-center">{{ $row->numBlogs }}</td>
-          <td class="text-center">{{ $row->numBlogers }}</td>
+          <td class="text-center">{{ $row->getBlogs->count() }}</td>
+          <td class="text-center">{{ $row->getBloggers->count() }}</td>
           <td>
             @if ($row->last_login)
             {{ date("m-d-Y H:i:s", strtotime($row->last_login)) }}

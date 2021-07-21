@@ -82,12 +82,19 @@ Route::middleware(['auth'])->group(function () {
     // common routes
     Route::get('{userType}/add-blog', 'Common\BlogController@index')->name('add-blog');
     Route::post('{userType}/add-blog', 'Common\BlogController@store')->name('create-blog');
-    Route::get('{userType}/edit-blog/{id}', 'Common\BlogController@update')->name('edit-blog');
-    Route::post('{userType}/edit-blog/{id}', 'Common\BlogController@updatePost')->name('update-blog');
-    Route::delete('{userType}/delete-blog/{id}', 'Common\BlogController@delete');
+
+    Route::middleware(['canAccessBlog'])->group(function () {
+        Route::get('{userType}/edit-blog/{id}', 'Common\BlogController@update')->name('edit-blog');
+        Route::post('{userType}/edit-blog/{id}', 'Common\BlogController@updatePost')->name('update-blog');
+        Route::delete('{userType}/delete-blog/{id}', 'Common\BlogController@delete');
+        Route::get('{userType}/view-blog/{id}', 'Common\BlogController@show')->name('view-blog');
+    });
+
     Route::post('{userType}/personal-detail-update', 'Common\DashboardController@update')->name('personal-detail-update');
-    Route::get('{userType}/view-blog/{id}', 'Common\BlogController@show')->name('view-blog');
     Route::get('{userType}/change-password', 'Common\DashboardController@changePassword')->name('change-password');
     Route::post('{userType}/change-password', 'Common\DashboardController@changePasswordPost')->name('change-password');
+    Route::get('{userType}/no-permission', function () {
+        return view('common.no-permission');
+    });
 });
 

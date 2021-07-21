@@ -15,20 +15,13 @@ class BlogController extends Controller
      */
     public function show(Request $request)
     {
-        $blogsQuery = Blogs::select(
-            'title',
-            'description',
-            'blogs.id AS blogId',
-            'first_name',
-            'last_name',
-            'email'
-        )->join('users', 'users.id', '=', 'user_id');
+        $blogsQuery = Blogs::orderByDesc('updated_at');
 
         if ($request->search) {
-            $blogsQuery->where(function ($query) use ($request) {
-                $query->where('title', 'like', "%$request->search%")
-                    ->orWhere('description', 'like', "%$request->search%");
-            });
+            $blogsQuery->whereRaw('title like ? or description like ?', [
+                "%{$request->search}%",
+                "%{$request->search}%"
+            ]);
         }
 
         $blogs = $blogsQuery->paginate(20);

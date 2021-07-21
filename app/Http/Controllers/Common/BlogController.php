@@ -31,12 +31,12 @@ class BlogController extends Controller
             'description'   => 'required',
         ]);
 
-        Blogs::insert([
-            'title'       => $request->title,
-            'description' => $request->description,
-            'user_id'     => Auth::user()->id,
-            'created_at'  => date('Y-m-d h:i:s'),
-        ]);
+        $blogs              = new Blogs;
+        $blogs->title       = $request->title;
+        $blogs->description = $request->description;
+        $blogs->user_id     = Auth::user()->id;
+        $blogs->created_at  = date('Y-m-d h:i:s');
+        $blogs->save();
 
         return redirect(Auth::user()->user_type . '/blog-list');
     }
@@ -48,7 +48,7 @@ class BlogController extends Controller
      */
     public function update(Request $request)
     {
-        $blogDet = Blogs::where('id', $request->route('id'))->first();
+        $blogDet = Blogs::find($request->route('id'));
 
         return view('common.edit', compact('blogDet'));
     }
@@ -65,11 +65,11 @@ class BlogController extends Controller
             'description'   => 'required',
         ]);
 
-        Blogs::where('id', $request->route('id'))->update([
-            'title'       => $request->title,
-            'description' => $request->description,
-            'updated_at'  => date('Y-m-d h:i:s'),
-        ]);
+        $blogs              = Blogs::find($request->route('id'));
+        $blogs->title       = $request->title;
+        $blogs->description = $request->description;
+        $blogs->updated_at  = date('Y-m-d h:i:s');
+        $blogs->save();
 
         return redirect(Auth::user()->user_type . '/blog-list');
     }
@@ -81,7 +81,8 @@ class BlogController extends Controller
      */
     public function delete(Request $request)
     {
-        Blogs::where('id', $request->route('id'))->delete();
+        $blogs = Blogs::find($request->route('id'));
+        $blogs->delete();
     }
 
     /**
@@ -91,7 +92,7 @@ class BlogController extends Controller
      */
     public function show(Request $request)
     {
-        $blog = Blogs::where('id', $request->route('id'))->first();
+        $blog = Blogs::find($request->route('id'));
 
         return view('common.view-blog', compact('blog'));
     }

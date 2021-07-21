@@ -17,24 +17,14 @@ class AssignUserController extends Controller
      */
     public function assignSupervisors(Request $request)
     {
-        $supervisors = User::select(
-            'id',
-            'first_name',
-            'last_name',
-            'email'
-        )->where('user_type', 'supervisor')
-        ->get();
+        $supervisors = User::where('user_type', 'supervisor')
+            ->get();
 
         $bloggerList      = [];
         $assignedBloggers = [];
         if ($request->id) {
-            $bloggerList = User::select(
-                'id',
-                'first_name',
-                'last_name',
-                'email'
-            )->where('user_type', 'blogger')
-            ->get();
+            $bloggerList = User::where('user_type', 'blogger')
+                ->get();
 
             $assignedBloggers = AssignedUsers::where('supervisor_id', $request->id)
                 ->get()
@@ -52,24 +42,14 @@ class AssignUserController extends Controller
      */
     public function assignBloggers(Request $request)
     {
-        $bloggers = User::select(
-            'id',
-            'first_name',
-            'last_name',
-            'email'
-        )->where('user_type', 'blogger')
-        ->get();
+        $bloggers = User::where('user_type', 'blogger')
+            ->get();
 
         $supervisorList      = [];
         $assignedSupervisor = [];
         if ($request->id) {
-            $supervisorList = User::select(
-                'id',
-                'first_name',
-                'last_name',
-                'email'
-            )->where('user_type', 'supervisor')
-            ->get();
+            $supervisorList = User::where('user_type', 'supervisor')
+                ->get();
 
             $assignedSupervisor = AssignedUsers::where('blogger_id', $request->id)
                 ->get()
